@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Realtime communication with WebRTC-joinerApp</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Realtime communication with WebRTC-joinerApp</h1>
+    <video autoplay playsinline style="width:400px; height:400px;"></video>
+    <div>
+        <textarea id='candidate1' style="width: 400px; height: 200px" placeholder="icecandidate1"></textarea>
+    </div>
+    <div>
+        <textarea id='offer' style="width: 400px; height: 200px" placeholder="offerfromremote"></textarea>
+    </div>
+    <div>
+        <textarea id='candidate2' style="width: 400px; height: 200px" placeholder="icecandidate2"></textarea>
+    </div>
+    <div>
+        <textarea id='answer' style="width: 400px; height: 200px" placeholder="answer"></textarea>
+    </div>
+    <button id="callButton">Create icecandidate</button>
+    <br>
+    <button id="hangup">Hang Up</button>
+
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>
