@@ -1,12 +1,21 @@
 'use strict';
-let localPeer;
 const servers = {
     iceServers: [
         {
-            url: 'stun:stun.l.google.com:19302'
+            urls: [
+                'stun:stun.l.google.com:19302',
+            ]
+        },
+        {
+            "urls": [
+                "turn:13.250.13.83:3478?transport=udp"
+            ],
+            "username": "YzYNCouZM1mhqhmseWk6",
+            "credential": "YzYNCouZM1mhqhmseWk6"
         }
     ]
 };  // Allows for RTC server configuration.
+let localPeer;
 
 $("#callButton").click(()=>{
     localPeer = new RTCPeerConnection(servers);
@@ -20,9 +29,9 @@ $("#callButton").click(()=>{
     let offerDesc = new RTCSessionDescription(JSON.parse($("#offer").val()));
     
     localPeer.setRemoteDescription(offerDesc)
-    localPeer.createAnswer(function (answerDesc) {
-      localPeer.setLocalDescription(answerDesc)
-      $("#answer").val(JSON.stringify(answerDesc))
+    localPeer.createAnswer(async function (answerDesc) {
+        await localPeer.setLocalDescription(answerDesc)
+        $("#answer").val(JSON.stringify(localPeer.localDescription))
     }, function () {console.warn("Couldn't create offer")});
 
     localPeer.ontrack = e => {
@@ -30,6 +39,10 @@ $("#callButton").click(()=>{
         console.log('streaming from remote.')
     }
     console.log('peer state: ', localPeer.iceConnectionState)
+        
+    localPeer.oniceconnectionstatechange = () => {
+        console.log(localPeer.iceConnectionState)
+    }
 });
 
 
